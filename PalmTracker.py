@@ -28,7 +28,7 @@ def segment(image, threshold=25):
                                 cv2.THRESH_BINARY)[1]
 
     # get the contours in the thresholded image
-    (_, cnts, _) = cv2.findContours(thresholded.copy(),
+    (cnts, _) = cv2.findContours(thresholded.copy(),
                                     cv2.RETR_EXTERNAL,
                                     cv2.CHAIN_APPROX_SIMPLE)
 
@@ -40,15 +40,17 @@ def segment(image, threshold=25):
         segmented = max(cnts, key=cv2.contourArea)
         return (thresholded, segmented)
 
+camera = cv2.VideoCapture(0)
+
 def main():
     # initialize weight for running average
     aWeight = 0.5
 
     # get the reference to the webcam
-    camera = cv2.VideoCapture(0)
+    
 
     # region of interest (ROI) coordinates
-    top, right, bottom, left = 10, 350, 225, 590
+    top, right, bottom, left = 10, 300, 225, 590
 
     # initialize num of frames
     num_frames = 0
@@ -100,7 +102,8 @@ def main():
                 if start_recording:
 
                     # Mention the directory in which you wanna store the images followed by the image name
-                    cv2.imwrite("Dataset/FistTest/fist_" + str(image_num) + '.png', thresholded)
+                    # cv2.imwrite("Dataset/FistTest/fist_" + str(image_num) + '.png', thresholded)
+                    cv2.imwrite("Dataset/PeaceTest/peace_" + str(image_num) + '.png', thresholded)
                     image_num += 1
                 cv2.imshow("Thesholded", thresholded)
 
